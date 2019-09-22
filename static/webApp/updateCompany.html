@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>预核保-修改公司</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="./css/public.css" />
+</head>
+<body>
+<div class="aside_nav">
+    <div class="nav_tit flex"><span>预</span></div>
+    <ul>
+        <li>
+            <a class="flex" href="index.html">待审核</a>
+        </li>
+        <li>
+            <a class="flex" href="audited.html">已审核</a>
+        </li>
+        <li  class="active">
+            <a class="flex" href=""><img th:src="./images/dengdai.png"> <span>公司管理</span></a>
+        </li>
+        <li>
+            <a class="flex" href="agency.html">代理人管理</a>
+        </li>
+        <li>
+            <a class="flex" href="">公告信息</a>
+        </li>
+    </ul>
+</div>
+<div class="wrap ">
+    <div class="header">
+        <ul class="rt_nav">
+            <li>
+                <img class="nav_img" th:src="images/default.jpg">
+            </li>
+            <li>
+                <a class="quit_icon">
+                    <img th:src="images/quit.png">
+                    <span>安全退出</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="shadow"></div>
+    <div class="tables" style="margin: 0px;">
+        <div class="table_seach anim">
+            <input placeholder="请输入公司名称" />
+            <div class="seach">搜索</div>
+        </div>
+        <div class="t_box anim">
+            <div class="box_tit">
+                <span>修改公司信息</span>
+            </div>
+            <div class="box_table">
+                <div class="details">
+                    <div class="details-item">
+                        <div class="details-item-l">
+                            <span>公司ID</span>
+                        </div>
+                        <input disabled="disabled" class="details-item-r changecompanyId"/>
+                    </div>
+                    <div class="details-item">
+                        <div class="details-item-l">
+                            <span>公司名称</span>
+                        </div>
+                        <input class="details-item-r changecompany"/>
+                    </div>
+                    <div class="details-item">
+                        <div class="details-item-l">
+                            <span>公司简称</span>
+                        </div>
+                        <input class="details-item-r changefirm"/>
+                    </div>
+                    <div class="details-item">
+                        <div class="details-item-l">
+                            <span>工号规则</span>
+                        </div>
+                        <input class="details-item-r changejobNumber"/>
+                    </div>
+                    <div class="details-result">
+                        <div class="result result-yes changeSubmitCompany">修改</div>
+                        <div class="result result-no changeCompant">取消</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="./js/jquery-2.1.0.js></script>
+<script src="./js/index.js"></script>
+<script src="./js/company.js"></script>
+</html>

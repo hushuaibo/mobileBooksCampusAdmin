@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>预核保-后台</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+</head>
+
+<body>
+
+    <div class="aside_nav">
+        <div class="nav_tit flex"><span>预</span></div>
+        <ul>
+            <li  class="active">
+                <a class="flex" href="index.html"> <img src="images/dengdai.png"> <span>待审核</span></a>
+            </li>
+            <li>
+                <a class="flex" href="audited.html">已审核</a>
+            </li>
+            <li>
+                <a class="flex" href="company.html">公司管理</a>
+            </li>
+            <li>
+                <a class="flex" href="agency.html">代理人管理</a>
+            </li>
+            <li>
+                <a class="flex" href="notice.html">公告信息</a>
+            </li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="header">
+            <ul class="rt_nav">
+
+                <li>
+                    <img class="nav_img" src="images/default.jpg">
+                </li>
+                <li>
+                    <a class="quit_icon">
+                        <img src="images/quit.png">
+                        <span>安全退出</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="add_modal">
+            <div class="modal_tit">添加公司</div>
+            <div class="modal_oper">
+                <a href="javascript:;" class="oper_close"></a>
+            </div>
+            <div class="modal_con">
+                <div class="con_input">
+                    <div class="con_input_l con_input_alike">
+                        <span>公司名称</span>
+                    </div>
+                    <input class="con_input_r con_input_alike" type="text" placeholder="请输入添加的公司名称" />
+                </div>
+                <div class="con_input">
+                    <div class="con_input_l con_input_alike">
+                        <span>工号</span>
+                    </div>
+                    <input class="con_input_r con_input_alike" type="text" placeholder="请输入公司工号的前四位" />
+                </div>
+            </div>
+            <div class="modal_sub">
+                <a class="sub_yes">提交</a>
+                <a class="sub_no">取消</a>
+            </div>
+        </div>
+        <div class="shadow"></div>
+        <div class="tables" style="margin: 0px">
+
+            <div class="table_seach anim">
+                <input placeholder="请输入公司名称" />
+                <div class="seach">搜索</div>
+            </div>
+
+            <div class="t_box anim">
+                <div class="box_tit">
+                    <span>公司工号管理</span>
+                    <div class="box_add">添加</div>
+                </div>
+                <div class="box_table">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="active">
+                                <th style="width:50px">序号</th>
+                                <th>公司名称</th>
+                                <th>工号前四位</th>
+                                <th>操作</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>未来工作室1</td>
+                                <td>2016</td>
+                                <td>
+                                    <div class="operation">
+                                        <a class="op_look">查看</a>
+                                        <a class="op_agree">编辑</a>
+                                        <a class="op_refuse">删除</a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>未来工作室2</td>
+                                <td>2017</td>
+                                <td>
+                                    <div class="operation">
+                                        <a class="op_look">查看</a>
+                                        <a class="op_agree">编辑</a>
+                                        <a class="op_refuse">删除</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>未来工作室3</td>
+                                <td>2018</td>
+                                <td>
+                                    <div class="operation">
+                                        <a class="op_look">查看</a>
+                                        <a class="op_agree">编辑</a>
+                                        <a class="op_refuse">删除</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery-2.1.0.js"></script>
+<script src="js/index.js"></script>
+<script src="js/company.js"></script>
+
+</html>
