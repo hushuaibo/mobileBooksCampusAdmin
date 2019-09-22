@@ -1,13 +1,12 @@
 <template>
-  <div class="t_box anim">
-    <div class="box_tit">
+  <div class="t_box anim"><!--整个表格部分-->
+    <div class="box_tit"><!--表格头部-->
       <span>用户管理</span>
       <div class="box_add">添加</div>
       <div class="box_add">打印</div>
       <div class="box_add">导出</div>
-      <div class="box_add">筛选</div>
     </div>
-    <div class="box_table">
+    <div class="box_table"><!--表格部分-->
       <table class="table table-bordered table-hover">
         <thead>
         <tr class="active">
@@ -44,7 +43,7 @@
         </tr>
         </tbody>
       </table>
-      <div class="page">
+      <div class="page"><!--页面分页-->
         <ul>
           <li style="padding: 0">
             <label>
@@ -84,7 +83,7 @@
         this.$store.dispatch('getUsers');
       },
       methods:{
-        chengPages(number){
+        chengPages(number){ // 定义一个页数跳转函数
           number = number*1;
           if(number<=0){
             number = 1;
@@ -98,8 +97,8 @@
         }
       },
       computed:{
-        ...mapState(['users']),
-        pages(){ //总共多少页
+        ...mapState(['users']), //拿到所有的用户数据
+        pages(){ //计算总共总共多少页
           let number = 0;
           const allUser = this.users;
           const pageSize = this.pageSize;
@@ -120,7 +119,7 @@
         },
       },
       watch: {
-        pageData(value) {
+        pageData(value) { //监听当前页数据，数据没有时跳转第一页
           if(value.length===0){
             this.pageNum = 1
           }
@@ -130,6 +129,7 @@
 </script>
 
 <style scoped>
+  /*整个表格的样式*/
   .t_box{
     background-color: #fff;
     width: 97%;
@@ -137,6 +137,7 @@
     padding: 0 0 10px;
     position: relative;
   }
+  /*表头样式*/
   .t_box .box_tit{
     border-color: #e7eaec;
     border-style: solid solid solid;
@@ -156,6 +157,7 @@
     text-align: center;
     cursor: pointer;
   }
+  /*表格主体样式*/
   .t_box .box_table{
     margin: 20px 30px;
   }
@@ -199,10 +201,12 @@
   tbody tr td .operation .op_look{
     background-color: #1D84C6;
   }
+  /*定义用户头像的样式*/
   .userImg{
     width: 30px;
     height: 30px;
   }
+  /*分页样式*/
   .page{
     width: 100%;
     height: 30px;
@@ -231,6 +235,7 @@
     background-color: white!important;
     color: #009688!important;
   }
+  /*页数跳转样式*/
   .choisePage{
     width: 30px;
     height: 16px;
@@ -241,6 +246,7 @@
     background-color: #009688;
     color: white;
   }
+  /*每页显示数据量select样式*/
   .selectPage{
     background-color: #009688;
     border: none 0;
