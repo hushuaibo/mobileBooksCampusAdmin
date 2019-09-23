@@ -1,69 +1,75 @@
 <template>
-  <div class="t_box anim"><!--整个表格部分-->
-    <div class="box_tit"><!--表格头部-->
-      <span>用户管理</span>
-      <div class="box_add">添加</div>
-      <div class="box_add">打印</div>
-      <div class="box_add">导出</div>
+  <div>
+    <div class="table_seach anim">
+      <input v-model="SearchTips" placeholder="请输入关键词" />
+      <div class="seach">搜索</div>
     </div>
-    <div class="box_table"><!--表格部分-->
-      <table class="table table-bordered table-hover">
-        <thead>
-        <tr class="active">
-          <th>用户名</th>
-          <th>密码</th>
-          <th>年龄</th>
-          <th>性别</th>
-          <th>生日</th>
-          <th>头像</th>
-          <th>家乡</th>
-          <th>手机</th>
-          <th>QQ</th>
-          <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(user,index) in pageData" :key="index">
-          <td>{{user.UserName}}</td>
-          <td>{{user.PassWorld}}</td>
-          <td>{{user.Age}}</td>
-          <td>{{user.Gender==='male'?'男':'女'}}</td>
-          <td>{{user.Birthday}}</td>
-          <td><img class="userImg" :src="user.Picture" alt="头像"></td>
-          <td>{{user.Hometown}}</td>
-          <td>{{user.Phone}}</td>
-          <td>{{user.QQ}}</td>
-          <td>
-            <div class="operation">
-              <a class="op_look">查看</a>
-              <a class="op_agree">编辑</a>
-              <a class="op_refuse">删除</a>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <div class="page"><!--页面分页-->
-        <ul>
-          <li style="padding: 0">
-            <label>
-              <select class="selectPage" v-model="pageSize">
-                <option value="5">每页5条</option>
-                <option value="10">每页10条</option>
-                <option value="15">每页15条</option>
-                <option value="20">每页20条</option>
-                <option value="25">每页25条</option>
-                <option value="30">每页30条</option>
-                <option value="50">每页50条</option>
-                <option value="100">每页100条</option>
-              </select>
-            </label>
-          </li>
-          <li @click="chengPages(1)">首页</li>
-          <li v-for="i in pages" :key="i" @click="chengPages(i)" :class="{'on': pageNum ===i }" v-if="i-pageNum>-3 && i-pageNum<3">{{ i }}</li>
-          <li @click="chengPages(pages)">尾页</li>
-          <li><input class="choisePage" type="text" v-model="choise" @keyup.enter="chengPages(choise)"><span @click="chengPages(choise)">跳转</span></li>
-        </ul>
+    <div class="t_box anim"><!--整个表格部分-->
+      <div class="box_tit"><!--表格头部-->
+        <span>用户管理</span>
+        <div class="box_add">添加</div>
+        <div class="box_add">打印</div>
+        <div class="box_add">导出</div>
+      </div>
+      <div class="box_table"><!--表格部分-->
+        <table class="table table-bordered table-hover">
+          <thead>
+          <tr class="active">
+            <th>用户名</th>
+            <th>密码</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>生日</th>
+            <th>头像</th>
+            <th>家乡</th>
+            <th>手机</th>
+            <th>QQ</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(user,index) in pageData" :key="index">
+            <td>{{user.UserName}}</td>
+            <td>{{user.PassWorld}}</td>
+            <td>{{user.Age}}</td>
+            <td>{{user.Gender==='male'?'男':'女'}}</td>
+            <td>{{user.Birthday}}</td>
+            <td><img class="userImg" :src="user.Picture" alt="头像"></td>
+            <td>{{user.Hometown}}</td>
+            <td>{{user.Phone}}</td>
+            <td>{{user.QQ}}</td>
+            <td>
+              <div class="operation">
+                <a class="op_look">查看</a>
+                <a class="op_agree">编辑</a>
+                <a class="op_refuse">删除</a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="page"><!--页面分页-->
+          <ul>
+            <li style="padding: 0">
+              <label>
+                <select class="selectPage" v-model="pageSize">
+                  <option value="5">每页5条</option>
+                  <option value="10">每页10条</option>
+                  <option value="15">每页15条</option>
+                  <option value="20">每页20条</option>
+                  <option value="25">每页25条</option>
+                  <option value="30">每页30条</option>
+                  <option value="50">每页50条</option>
+                  <option value="100">每页100条</option>
+                </select>
+              </label>
+            </li>
+            <li @click="chengPages(1)">首页</li>
+            <li v-for="i in pages" :key="i" @click="chengPages(i)" :class="{'on': pageNum ===i }" v-if="i-pageNum>-3 && i-pageNum<3">{{ i }}</li>
+            <li @click="chengPages(pages)">尾页</li>
+            <li><input class="choisePage" type="text" v-model="choise" @keyup.enter="chengPages(choise)"><span @click="chengPages(choise)">跳转</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -76,7 +82,8 @@
         return{
           pageNum : 1, //当前页数
           pageSize : 10, //每页多少条数据
-          choise:''//跳转页数
+          choise:'',//跳转页数
+          SearchTips:''
         }
       },
       mounted(){
@@ -94,7 +101,7 @@
             this.choise = this.pages;
           }
           this.pageNum = number
-        }
+        },
       },
       computed:{
         ...mapState(['users']), //拿到所有的用户数据
@@ -156,6 +163,46 @@
     background-color: rgb(0, 150, 136);
     text-align: center;
     cursor: pointer;
+  }
+  /*搜索框样式*/
+  .table_seach{
+    width: 97%;
+    margin: 20px auto;
+  }
+  .anim{
+    transform: translateX(0px);
+    opacity: 1;
+    animation-fill-mode: forwards;
+  }
+  .table_seach:after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+  .table_seach input{
+    width: 200px;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 0px 10px;
+    float: left;
+  }
+  .table_seach .seach{
+    height: 35px;
+    line-height: 35px;
+    padding: 0 18px;
+    background-color: #009688;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-left: 10px;
+    float: left;
   }
   /*表格主体样式*/
   .t_box .box_table{

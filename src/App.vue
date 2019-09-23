@@ -4,7 +4,6 @@
     <div class="wrap">
       <Header/>
       <div class="tables">
-        <TableSearch/>
         <router-view/>
       </div>
     </div>
@@ -14,12 +13,10 @@
 <script>
 import PublicNav from './components/PublicNav/PublicNav.vue'
 import Header from './components/Header/Header.vue'
-import TableSearch from './components/TableSearch/TableSearch.vue'
 export default {
   components:{
     PublicNav,
-    Header,
-    TableSearch
+    Header
   }
 }
 </script>
