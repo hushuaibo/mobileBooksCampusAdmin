@@ -7,7 +7,7 @@
     <div class="t_box anim"><!--整个表格部分-->
       <div class="box_tit"><!--表格头部-->
         <span>用户管理</span>
-        <div class="box_add">添加</div>
+        <div class="box_add" @click="goTo('/user/add')">添加</div>
         <div class="box_add">打印</div>
         <div class="box_add">导出</div>
       </div>
@@ -42,25 +42,18 @@
               <div class="operation">
                 <a class="op_look">查看</a>
                 <a class="op_agree">编辑</a>
-                <a class="op_refuse">删除</a>
+                <a class="op_refuse" @click="deleteUser(user.UserId)">删除</a>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
-        <div class="page"><!--页面分页-->
+        <div class="page" v-if="users.length>10"><!--页面分页-->
           <ul>
             <li style="padding: 0">
               <label>
                 <select class="selectPage" v-model="pageSize">
-                  <option value="5">每页5条</option>
-                  <option value="10">每页10条</option>
-                  <option value="15">每页15条</option>
-                  <option value="20">每页20条</option>
-                  <option value="25">每页25条</option>
-                  <option value="30">每页30条</option>
-                  <option value="50">每页50条</option>
-                  <option value="100">每页100条</option>
+                  <option v-for="(pageData,index) in pageDataList" :value="pageData" :key="index">每页{{pageData}}条</option>
                 </select>
               </label>
             </li>
@@ -77,13 +70,15 @@
 
 <script>
     import {mapState} from "vuex";
+    import {reqUserDelete} from "./../../api";
     export default {
       data(){
         return{
           pageNum : 1, //当前页数
           pageSize : 10, //每页多少条数据
           choise:'',//跳转页数
-          SearchTips:''
+          SearchTips:'',//搜索关键词
+          pageDataList:[5,10,15,20,25,30,50,100],
         }
       },
       mounted(){
@@ -102,6 +97,16 @@
           }
           this.pageNum = number
         },
+        goTo(path){
+          this.$router.replace(path);
+        },
+        async deleteUser(userID){
+          const result = await reqUserDelete(userID);
+          if(result.code === 1){
+            alert(result.msg);
+            window.location.href="/user";
+          }
+        }
       },
       computed:{
         ...mapState(['users']), //拿到所有的用户数据
@@ -186,7 +191,7 @@
     border: 1px solid #e6e6e6;
     background-color: #fff;
     border-radius: 2px;
-    padding: 0px 10px;
+    padding: 0 10px;
     float: left;
   }
   .table_seach .seach{

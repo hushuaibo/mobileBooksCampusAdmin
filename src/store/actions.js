@@ -2,7 +2,8 @@ import {
   RECEIVE_USER
 } from './mutation-types'
 import {
-  reqUsers
+  reqUsers,
+  reqUserDelete
 } from '../api'
 export default {
   async getUsers({commit}){

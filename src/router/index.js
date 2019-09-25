@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import User from '../page/user/user'
+import userAdd from '../page/user/userAdd'
 Vue.use(VueRouter);
 export default new VueRouter({
   routes:[
@@ -9,8 +10,12 @@ export default new VueRouter({
       component:User,
     },
     {
+      path:'/user/add',
+      component: userAdd
+    },
+    {
       path:'/',
       redirect:'user'
-    }
+    },
   ]
 })
