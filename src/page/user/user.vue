@@ -8,10 +8,20 @@
       <div class="box_tit"><!--表格头部-->
         <span>用户管理</span>
         <div class="box_add" @click="goTo('/user/add')">添加</div>
-        <div class="box_add">打印</div>
-        <div class="box_add">导出</div>
+        <div class="box_add" @click="print">打印</div>
+        <div class="box_add" @click="download">导出Excel</div>
+        <div class="box_add" @click="showOperation = !showOperation">{{showOperation?'隐藏操作':'显示操作'}}</div>
+        <select class="box_add">
+          <option value="123">123</option>
+          <option value="123">123</option>
+          <option value="123">123</option>
+          <option value="123">123</option>
+          <option value="123">123</option>
+          <option value="123">123</option>
+          <option value="123">123</option>
+        </select>
       </div>
-      <div class="box_table"><!--表格部分-->
+      <div class="box_table" ref="print"><!--表格部分-->
         <table class="table table-bordered table-hover">
           <thead>
           <tr class="active">
@@ -24,7 +34,7 @@
             <th>家乡</th>
             <th>手机</th>
             <th>QQ</th>
-            <th>操作</th>
+            <th v-if="showOperation">操作</th>
           </tr>
           </thead>
           <tbody>
@@ -38,7 +48,7 @@
             <td>{{user.Hometown}}</td>
             <td>{{user.Phone}}</td>
             <td>{{user.QQ}}</td>
-            <td>
+            <td v-if="showOperation">
               <div class="operation">
                 <a class="op_look">查看</a>
                 <a class="op_agree">编辑</a>
@@ -48,21 +58,21 @@
           </tr>
           </tbody>
         </table>
-        <div class="page" v-if="users.length>10"><!--页面分页-->
-          <ul>
-            <li style="padding: 0">
-              <label>
-                <select class="selectPage" v-model="pageSize">
-                  <option v-for="(pageData,index) in pageDataList" :value="pageData" :key="index">每页{{pageData}}条</option>
-                </select>
-              </label>
-            </li>
-            <li @click="chengPages(1)">首页</li>
-            <li v-for="i in pages" :key="i" @click="chengPages(i)" :class="{'on': pageNum ===i }" v-if="i-pageNum>-3 && i-pageNum<3">{{ i }}</li>
-            <li @click="chengPages(pages)">尾页</li>
-            <li><input class="choisePage" type="text" v-model="choise" @keyup.enter="chengPages(choise)"><span @click="chengPages(choise)">跳转</span></li>
-          </ul>
-        </div>
+      </div>
+      <div class="page" v-if="users.length>8"><!--页面分页-->
+        <ul>
+          <li style="padding: 0">
+            <label>
+              <select class="selectPage" v-model="pageSize">
+                <option v-for="(pageData,index) in pageDataList" :value="pageData" :key="index">每页{{pageData}}条</option>
+              </select>
+            </label>
+          </li>
+          <li @click="chengPages(1)">首页</li>
+          <li v-for="i in pages" :key="i" @click="chengPages(i)" :class="{'on': pageNum ===i }" v-if="i-pageNum>-3 && i-pageNum<3">{{ i }}</li>
+          <li @click="chengPages(pages)">尾页</li>
+          <li><input class="choisePage" type="text" v-model="choise" @keyup.enter="chengPages(choise)"><span @click="chengPages(choise)">跳转</span></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -70,15 +80,19 @@
 
 <script>
     import {mapState} from "vuex";
-    import {reqUserDelete} from "./../../api";
+    import {
+      reqUserDelete,
+      reqUserDownload
+    } from "./../../api";
     export default {
       data(){
         return{
           pageNum : 1, //当前页数
-          pageSize : 10, //每页多少条数据
+          pageSize : 8, //每页多少条数据
           choise:'',//跳转页数
           SearchTips:'',//搜索关键词
-          pageDataList:[5,10,15,20,25,30,50,100],
+          pageDataList:[1,3,5,6,8,10,15,20,25,30],
+          showOperation:true
         }
       },
       mounted(){
@@ -106,6 +120,23 @@
             alert(result.msg);
             window.location.href="/user";
           }
+        },
+        async download(){
+          const result = await reqUserDownload();
+          if(result.code === 1){
+            window.location.href = result.file;
+          }
+        },
+        print(){
+          this.showOperation = false;
+          setTimeout(()=>{
+            const headStr = "<html><head><title></title></head><body>";
+            const newStr = this.$refs.print.innerHTML;
+            const footStr = "</body>";
+            document.body.innerHTML = headStr + newStr + footStr;
+            window.print();
+            window.location.href='/user'
+          },10);
         }
       },
       computed:{
@@ -241,9 +272,6 @@
   tbody tr td .operation a:hover{
     text-shadow:  0 0 1px #fff;
   }
-  tbody tr td:last-child{
-    width: 200px;
-  }
   tbody tr td .operation .op_agree{
     background-color: #009688;
   }
@@ -260,8 +288,9 @@
   }
   /*分页样式*/
   .page{
-    width: 100%;
+    width: 95%;
     height: 30px;
+    margin: 10px 2.5%;
   }
   .page ul{
     display: inline-block;

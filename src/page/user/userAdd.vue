@@ -21,7 +21,7 @@
                 <div class="details-item-l">
                   <span>密码</span>
                 </div>
-                <input name="password" v-model="password" class="details-item-r"/>
+                <input type="password" name="password" v-model="password" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
