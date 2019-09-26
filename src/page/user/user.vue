@@ -11,47 +11,52 @@
         <div class="box_add" @click="print">打印</div>
         <div class="box_add" @click="download">导出Excel</div>
         <div class="box_add" @click="showOperation = !showOperation">{{showOperation?'隐藏操作':'显示操作'}}</div>
-        <select class="box_add">
-          <option value="123">123</option>
-          <option value="123">123</option>
-          <option value="123">123</option>
-          <option value="123">123</option>
-          <option value="123">123</option>
-          <option value="123">123</option>
-          <option value="123">123</option>
-        </select>
+        <div class="selectCheng" :class="{ 'hid': isHide }">
+          <div class="allOption">
+            <div class="optionOne" @click="isHide=!isHide">{{isHide?'筛选内容':'关闭筛选'}}</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserName">&nbsp;用户名</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserPasswold">&nbsp;密码</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserAge">&nbsp;年龄</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserGender">&nbsp;性别</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserBirthday">&nbsp;生日</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserImage">&nbsp;头像</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserHometown">&nbsp;家乡</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserPhone">&nbsp;手机</div>
+            <div class="optionOne"><input type="checkbox" v-model="showUserQq">&nbsp;QQ</div>
+          </div>
+        </div>
       </div>
       <div class="box_table" ref="print"><!--表格部分-->
         <table class="table table-bordered table-hover">
           <thead>
           <tr class="active">
-            <th>用户名</th>
-            <th>密码</th>
-            <th>年龄</th>
-            <th>性别</th>
-            <th>生日</th>
-            <th>头像</th>
-            <th>家乡</th>
-            <th>手机</th>
-            <th>QQ</th>
+            <th v-if="showUserName">用户名</th>
+            <th v-if="showUserPasswold">密码</th>
+            <th v-if="showUserAge">年龄</th>
+            <th v-if="showUserGender">性别</th>
+            <th v-if="showUserBirthday">生日</th>
+            <th v-if="showUserImage">头像</th>
+            <th v-if="showUserHometown">家乡</th>
+            <th v-if="showUserPhone">手机</th>
+            <th v-if="showUserQq">QQ</th>
             <th v-if="showOperation">操作</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="(user,index) in pageData" :key="index">
-            <td>{{user.UserName}}</td>
-            <td>{{user.PassWorld}}</td>
-            <td>{{user.Age}}</td>
-            <td>{{user.Gender==='male'?'男':'女'}}</td>
-            <td>{{user.Birthday}}</td>
-            <td><img class="userImg" :src="user.Picture" alt="头像"></td>
-            <td>{{user.Hometown}}</td>
-            <td>{{user.Phone}}</td>
-            <td>{{user.QQ}}</td>
+            <td v-if="showUserName">{{user.UserName}}</td>
+            <td v-if="showUserPasswold">{{user.PassWorld}}</td>
+            <td v-if="showUserAge">{{user.Age}}</td>
+            <td v-if="showUserGender">{{user.Gender==='male'?'男':'女'}}</td>
+            <td v-if="showUserBirthday">{{user.Birthday}}</td>
+            <td v-if="showUserImage"><img class="userImg" :src="user.Picture" alt="头像"></td>
+            <td v-if="showUserHometown">{{user.Hometown}}</td>
+            <td v-if="showUserPhone">{{user.Phone}}</td>
+            <td v-if="showUserQq">{{user.QQ}}</td>
             <td v-if="showOperation">
               <div class="operation">
                 <a class="op_look">查看</a>
-                <a class="op_agree">编辑</a>
+                <a class="op_agree" @click="goTo('/user/edit')">编辑</a>
                 <a class="op_refuse" @click="deleteUser(user.UserId)">删除</a>
               </div>
             </td>
@@ -91,8 +96,18 @@
           pageSize : 8, //每页多少条数据
           choise:'',//跳转页数
           SearchTips:'',//搜索关键词
-          pageDataList:[1,3,5,6,8,10,15,20,25,30],
-          showOperation:true
+          pageDataList:[1,3,5,6,8,10,15,20,25,30],//每页数据量数组
+          showOperation:true,//是否显示操作
+          isHide:true,//绑定class显示是否筛选内容
+          showUserName:true,//是否显示用户名
+          showUserPasswold:true,//是否显示密码
+          showUserAge:true,//是否显示年龄
+          showUserGender:true,//是否显示性别
+          showUserBirthday:true,//是否显示生日
+          showUserImage:true,//是否显示头像
+          showUserHometown:true,//是否显示家乡
+          showUserPhone:true,//是否显示手机号
+          showUserQq:true,//是否显示QQ号
         }
       },
       mounted(){
@@ -332,5 +347,33 @@
     background-color: #009688;
     border: none 0;
     outline: none;
+  }
+  /*显示内容选择样式*/
+  .selectCheng{
+    width: auto;
+    height: 23px;
+    display: inline-block;
+    float: right;
+    background-color: rgb(0, 150, 136);
+    margin: 0 10px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .allOption{
+    background-color: rgb(0, 150, 136);
+    color: white;
+    border-radius: 2px;
+    z-index: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  .optionOne{
+    border-bottom: solid 1px #00ab9b;
+    padding: 0 10px;
+    line-height: 23px;
+  }
+  .hid{
+    overflow: hidden;
   }
 </style>
