@@ -55,8 +55,8 @@
             <td v-if="showUserQq">{{user.QQ}}</td>
             <td v-if="showOperation">
               <div class="operation">
-                <a class="op_look">查看</a>
-                <a class="op_agree" @click="goTo('/user/edit')">编辑</a>
+                <a class="op_look" @click="userContent(user.UserId)">查看</a>
+                <a class="op_agree" @click="userEdit(user.UserId)">编辑</a>
                 <a class="op_refuse" @click="deleteUser(user.UserId)">删除</a>
               </div>
             </td>
@@ -96,18 +96,18 @@
           pageSize : 8, //每页多少条数据
           choise:'',//跳转页数
           SearchTips:'',//搜索关键词
-          pageDataList:[1,3,5,6,8,10,15,20,25,30],//每页数据量数组
+          pageDataList:[2,4,8,10,15,20,30,50,100],//每页数据量数组
           showOperation:true,//是否显示操作
           isHide:true,//绑定class显示是否筛选内容
           showUserName:true,//是否显示用户名
-          showUserPasswold:true,//是否显示密码
+          showUserPasswold:false,//是否显示密码
           showUserAge:true,//是否显示年龄
           showUserGender:true,//是否显示性别
           showUserBirthday:true,//是否显示生日
           showUserImage:true,//是否显示头像
           showUserHometown:true,//是否显示家乡
           showUserPhone:true,//是否显示手机号
-          showUserQq:true,//是否显示QQ号
+          showUserQq:false,//是否显示QQ号
         }
       },
       mounted(){
@@ -152,6 +152,14 @@
             window.print();
             window.location.href='/user'
           },10);
+        },
+        async userEdit(userID){
+          this.$store.dispatch('getUserContent',userID);
+          this.goTo('/user/edit')
+        },
+        async userContent(userID){
+          this.$store.dispatch('getUserContent',userID);
+          this.goTo('/user/content')
         }
       },
       computed:{

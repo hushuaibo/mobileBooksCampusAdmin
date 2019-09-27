@@ -8,5 +8,7 @@ export const reqUserAdd = (user) => ajax(BASE_URL+'/admin/user/userAdd',user,'po
 export const reqUserDelete = (userId) => ajax(BASE_URL+'/admin/user/userDelete',{userId});
 //修改用户信息
 export const reqUserEdit = (user) =>ajax(BASE_URL+'/admin/user/userEdit',user,'post',{headers:{"Content-Type": "multipart/form-data"}});
+//查看用户信息
+export const reqUserContent = (userId) => ajax(BASE_URL+'/admin/user/userContent',{userId});
 //下载所有用户
 export const reqUserDownload = () => ajax(BASE_URL+'/admin/user/download');

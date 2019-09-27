@@ -10,8 +10,7 @@
         </div>
         <div class="box_table">
           <div class="details">
-            <form action="/apis/admin/user/userEdit" method="post" enctype="multipart/form-data" @submit.prevent ="addUser">
-              <div class="details-item">
+            <div class="details-item">
                 <div class="details-item-l">
                   <span>用户ID</span>
                 </div>
@@ -21,62 +20,54 @@
                 <div class="details-item-l">
                   <span>用户名</span>
                 </div>
-                <input name="username" v-model="username" class="details-item-r"/>
+                <input disabled="disabled" name="username" v-model="username" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
                   <span>密码</span>
                 </div>
-                <input type="password" name="password" v-model="password" class="details-item-r"/>
+                <input disabled="disabled" type="password" name="password" v-model="password" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
                   <span>年龄</span>
                 </div>
-                <input name="age" v-model="age" class="details-item-r"/>
+                <input disabled="disabled" name="age" v-model="age" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
                   <span>性别</span>
                 </div>
-                <input name="gender" v-model="gender" class="details-item-r"/>
+                <input disabled="disabled" name="gender" v-model="gender" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
                   <span>生日</span>
                 </div>
-                <input name="birthday" v-model="birthday" class="details-item-r"/>
+                <input disabled="disabled" name="birthday" v-model="birthday" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
                   <span>家乡</span>
                 </div>
-                <input name="hometown" v-model="hometown" class="details-item-r"/>
+                <input disabled="disabled" name="hometown" v-model="hometown" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
                   <span>手机号</span>
                 </div>
-                <input name="phone" v-model="phone" class="details-item-r"/>
+                <input disabled="disabled" name="phone" v-model="phone" class="details-item-r"/>
               </div>
               <div class="details-item">
                 <div class="details-item-l">
                   <span>QQ</span>
                 </div>
-                <input name="qq" v-model="qq" class="details-item-r"/>
-              </div>
-              <div class="details-item">
-                <div class="details-item-l">
-                  <span>头像</span>
-                </div>
-                <input name="picture" @change="chooiceFile($event)" type="file" class="details-item-r"/>
+                <input disabled="disabled" name="qq" v-model="qq" class="details-item-r"/>
               </div>
               <img class="userImg" :src="picture" alt="用户头像">
               <div class="details-result">
-                <input class="result result-yes" type="submit" value="修改"/>
-                <div class="result result-no" @click="goTo('/user')">取消</div>
+                <div class="result result-no" @click="goTo('/user')">返回</div>
               </div>
-            </form>
           </div>
         </div>
       </div>
@@ -104,9 +95,6 @@
     methods:{
       goTo(path){
         this.$router.replace(path)
-      },
-      chooiceFile(event) {
-        this.file = event.target.files[0];
       },
       async addUser(){
         const formdata = new FormData();
@@ -261,6 +249,7 @@
   }
   .result-no{
     background-color:#FF5722;
+    margin-left: 70px;
   }
   .userImg{
     width: 200px;
